@@ -1,1 +1,14 @@
-<p>nomenclature-create works!</p>
+<form class="form-nomenclature" [formGroup]="form" (ngSubmit)="onSubmint()">
+    <h2 class="form-nomenclature-title">New Nomenclature</h2>
+    <label>
+        Title: 
+        <input type="text" formControlName="title"/>
+    </label>
+    <label>
+        Description:
+        <input type="text" formControlName="description"/>
+    </label>
+    <br>
+    <br>
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Counterparty } from './counterparty';
 
 @Injectable({
@@ -22,7 +22,19 @@ export class CounterpartyService {
     }
   ]
 
-  constructor(private _http: HttpClient) { }
+  private resourceSource = new BehaviorSubject<Counterparty[]>([]);
+  resource = this.resourceSource.asObservable();
+
+  constructor(private _http: HttpClient) {}
+
+  init() {
+    this._http.get<Counterparty[]>(this.REST_API_SERVER)
+      .subscribe(this.next.bind(this));
+  }
+
+  next(counterpartyList: Counterparty[]): void {
+    this.resourceSource.next(counterpartyList);
+  }
 
   get(id:number) {
     return this.items.find(item => item.id === id);

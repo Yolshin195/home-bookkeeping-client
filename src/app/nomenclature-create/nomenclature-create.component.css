@@ -1,0 +1,10 @@
+.form-nomenclature {
+    border: solid 1px black;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    width: 740px;
+}
+
+.form-nomenclature-title {
+    text-align: center;
+}

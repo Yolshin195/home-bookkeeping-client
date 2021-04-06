@@ -37,10 +37,12 @@ export class OrderCreateComponent implements OnInit {
     )
     .subscribe(value => this.setPrice(value));
     
-    this.nomenclatureService.getAll()
+    this.nomenclatureService.resurce
       .subscribe(nomenclatureList => this.nomenclatureList = nomenclatureList);
-    this.counterpartyService.getAll()
+    this.counterpartyService.resource
       .subscribe(counterpartyList => this.counterpartyList = counterpartyList);
+      this.nomenclatureService.init();
+      this.counterpartyService.init();
   }
 
   createOrderForm(): FormGroup {
