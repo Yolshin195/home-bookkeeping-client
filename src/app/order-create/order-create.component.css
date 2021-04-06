@@ -1,0 +1,15 @@
+.form-order {
+    border: solid 1px black;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    width: 740px;
+}
+.form-order-title {
+    text-align: center;
+}
+.form-order-table {
+    margin-bottom: 0.5rem;
+}
+.form-order-row {
+    width: 100%;
+}

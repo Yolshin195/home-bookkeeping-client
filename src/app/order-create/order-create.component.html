@@ -1,0 +1,39 @@
+<form class="form-order" [formGroup]="orderFormGroup" (ngSubmit)="onSubmit()">
+    <h2 class="form-order-title">New Order</h2>
+    <label>Контрагент: </label>
+    <select formControlName="counterparty" style="margin-bottom: 0.5rem;">
+        <option *ngFor="let counterparty of counterpartyList" [ngValue]="counterparty.id">
+            {{counterparty.title}}
+        </option>
+    </select>
+    <table class="form-order-table">
+        <thead>
+            <tr>
+                <th>Номенклатура</th>
+                <th>Колличество</th>
+                <th>Цена</th>
+                <th>Сумма</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody formArrayName="products" *ngFor="let product of orderFormGroup.get('products')['controls']; let i = index">
+            <tr [formGroupName]="i">
+                <td>
+                    <select class="form-order-row" formControlName="nomenclature">
+                        <option *ngFor="let nomenclature of nomenclatureList" [ngValue]="nomenclature.id">
+                            {{nomenclature.title}}
+                        </option>
+                    </select>
+                </td>
+                <td><input class="form-order-row" formControlName="amount"/></td>
+                <td><input class="form-order-row" formControlName="price"/></td>
+                <td><input class="form-order-row" formControlName="sum"/></td>
+                <td (click)="removeProduct(i)"><button>x</button></td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <p>Итог: {{sum}}</p>
+    <button type="button" (click)="addProduct()">Add product</button>
+    <button type="submit" [disabled]="!orderFormGroup.valid">Submit</button>
+</form>

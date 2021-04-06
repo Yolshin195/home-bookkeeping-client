@@ -1,0 +1,12 @@
+.order {
+    border: solid 1px black;
+    width: 400px;
+}
+
+.order-title {
+    text-align: center;
+}
+
+.order-table {
+    width: 100%;
+}

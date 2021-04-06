@@ -1,0 +1,23 @@
+<div class="order">
+    <h1 class="order-title">Order {{order.create | date:'short'}}</h1>
+    <p>
+        <span>Контрагент: </span>
+        <span>{{order.counterparty.title}}</span>
+    </p>
+    
+    <table class="order-table">
+        <tr>
+            <th>Номенклатура</th>
+            <th>Колличество</th>
+            <th>Цена</th>
+            <th>Сумма</th>
+        </tr>
+        <tr *ngFor="let product of order.products; let i = index">
+            <td>{{product.nomenclature.title}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.sum}}</td>
+        </tr>
+    </table>
+    <p>Итог: {{order.products | sum:'sum'}}</p>
+</div>
