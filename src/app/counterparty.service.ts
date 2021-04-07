@@ -25,11 +25,18 @@ export class CounterpartyService {
   private resourceSource = new BehaviorSubject<Counterparty[]>([]);
   resource = this.resourceSource.asObservable();
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { this.init(); }
 
   init() {
     this._http.get<Counterparty[]>(this.REST_API_SERVER)
       .subscribe(this.next.bind(this));
+  }
+
+  add(counterparty: Counterparty): void {
+    this._http.post<Counterparty>(this.REST_API_SERVER, counterparty).subscribe(item => {
+        this.next([item,...this.resourceSource.getValue()])
+    });
+    console.log(counterparty);
   }
 
   next(counterpartyList: Counterparty[]): void {

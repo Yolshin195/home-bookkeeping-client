@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NomenclatureComponent } from './nomenclature/nomenclature.component';
 import { CounterpartyCreateComponent } from './counterparty-create/counterparty-create.component';
 import { NomenclatureCreateComponent } from './nomenclature-create/nomenclature-create.component';
+import { PriceCreateComponent } from './price-create/price-create.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NomenclatureCreateComponent } from './nomenclature-create/nomenclature-
     OrderCreateComponent,
     NomenclatureComponent,
     CounterpartyCreateComponent,
-    NomenclatureCreateComponent
+    NomenclatureCreateComponent,
+    PriceCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -17,9 +17,6 @@ import { Counterparty } from '../counterparty';
 export class OrderCreateComponent implements OnInit {
   sum: number = 0;
   orderFormGroup: FormGroup;
-  nomenclatureList: Nomenclature[];
-  counterpartyList: Counterparty[];
-
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -36,13 +33,6 @@ export class OrderCreateComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => this.setPrice(value));
-    
-    this.nomenclatureService.resurce
-      .subscribe(nomenclatureList => this.nomenclatureList = nomenclatureList);
-    this.counterpartyService.resource
-      .subscribe(counterpartyList => this.counterpartyList = counterpartyList);
-      this.nomenclatureService.init();
-      this.counterpartyService.init();
   }
 
   createOrderForm(): FormGroup {

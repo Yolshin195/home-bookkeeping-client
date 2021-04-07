@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
 import { Nomenclature } from './nomenclature';
 
 @Injectable({
@@ -26,7 +25,7 @@ export class NomenclatureService {
   private resurceSource = new BehaviorSubject<Nomenclature[]>([]);
   resurce = this.resurceSource.asObservable();
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) {this.init();}
 
   init() {
     this._http.get<Nomenclature[]>(this.REST_API_SERVER)

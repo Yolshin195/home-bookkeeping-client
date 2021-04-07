@@ -2,7 +2,7 @@
     <h2 class="form-order-title">New Order</h2>
     <label>Контрагент: </label>
     <select formControlName="counterparty" style="margin-bottom: 0.5rem;">
-        <option *ngFor="let counterparty of counterpartyList" [ngValue]="counterparty.id">
+        <option *ngFor="let counterparty of counterpartyService.resource |async" [ngValue]="counterparty.id">
             {{counterparty.title}}
         </option>
     </select>
@@ -20,7 +20,7 @@
             <tr [formGroupName]="i">
                 <td>
                     <select class="form-order-row" formControlName="nomenclature">
-                        <option *ngFor="let nomenclature of nomenclatureList" [ngValue]="nomenclature.id">
+                        <option *ngFor="let nomenclature of nomenclatureService.resurce |async" [ngValue]="nomenclature.id">
                             {{nomenclature.title}}
                         </option>
                     </select>
