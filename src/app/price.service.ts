@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Counterparty } from './counterparty';
 import { Nomenclature } from './nomenclature';
 import { Price } from './price';
@@ -7,6 +9,10 @@ import { Price } from './price';
   providedIn: 'root'
 })
 export class PriceService {
+  private REST_API_SERVER = "http://localhost:8080/price";
+  private resourceSource = new BehaviorSubject<Price[]>([]);
+  resource = this.resourceSource.asObservable();
+
   items: Price[] = [
     {
       id: 1,
@@ -25,7 +31,22 @@ export class PriceService {
     }
   ];
 
-  constructor() { }
+  constructor(private _html: HttpClient) { }
+
+  add():void {
+
+  }
+
+  get(): Observable<Price> {
+    return null;
+  }
+
+  getAll(): Observable<Price[]> {
+    this._html.get<Price[]>(this.REST_API_SERVER).subscribe(price_list => {
+      this.resourceSource.next(price_list);
+    })
+    return this.resource;
+  }
 
   create(nomenclature: Nomenclature, counterparty: Counterparty, price: number) {
     this.items.push({
