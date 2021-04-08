@@ -10,10 +10,11 @@ import { OrderService } from '../order.service';
 export class OrderLineComponent implements OnInit {
   public orderList: Order[] = [];
 
-  constructor(private orderService: OrderService) { }
+  constructor(public orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getOrderList();
+    this.orderService.getAll();
   }
 
   getOrderList(): void {

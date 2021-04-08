@@ -16,7 +16,7 @@
                 <th>Удалить</th>
             </tr>
         </thead>
-        <tbody formArrayName="products" *ngFor="let product of orderFormGroup.get('products')['controls']; let i = index">
+        <tbody formArrayName="productList" *ngFor="let product of orderFormGroup.get('productList')['controls']; let i = index">
             <tr [formGroupName]="i">
                 <td>
                     <select class="form-order-row" formControlName="nomenclature">

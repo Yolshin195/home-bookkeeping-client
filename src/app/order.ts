@@ -5,5 +5,5 @@ export interface Order {
     id: number,
     create: Date
     counterparty: Counterparty,
-    products: Product[]
+    productList: Product[]
 }

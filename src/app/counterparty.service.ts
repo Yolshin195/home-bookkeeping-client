@@ -44,7 +44,7 @@ export class CounterpartyService {
   }
 
   get(id:number) {
-    return this.items.find(item => item.id === id);
+    return this.resourceSource.getValue().find(item => item.id === id);
   }
 
   getAll(): Observable<Counterparty[]> {

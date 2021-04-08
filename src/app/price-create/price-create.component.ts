@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CounterpartyService } from '../counterparty.service';
 import { NomenclatureService } from '../nomenclature.service';
+import { PriceService } from '../price.service';
 
 @Component({
   selector: 'app-price-create',
@@ -14,6 +15,7 @@ export class PriceCreateComponent implements OnInit {
   constructor(
     public counterpartyService: CounterpartyService,
     public nomenclatureService: NomenclatureService,
+    private priceService: PriceService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -23,8 +25,6 @@ export class PriceCreateComponent implements OnInit {
 
   onCreateForm(): FormGroup {
     return this.formBuilder.group({
-      createDate: [new Date(), Validators.required],
-      createTime: [new Date(), Validators.required],
       price: [0, Validators.required],
       counterparty: ['', Validators.required],
       nomenclature: ['', Validators.required]
@@ -33,6 +33,10 @@ export class PriceCreateComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.form.value);
+    let nomenclature = this.nomenclatureService.get(Number(this.form.value.nomenclature));
+    let counterparty = this.counterpartyService.get(Number(this.form.value.counterparty));
+    let price = Number(this.form.value.price);
+    this.priceService.create(nomenclature, counterparty, price);
   }
 
 }

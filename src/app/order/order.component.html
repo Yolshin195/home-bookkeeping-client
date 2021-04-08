@@ -12,12 +12,12 @@
             <th>Цена</th>
             <th>Сумма</th>
         </tr>
-        <tr *ngFor="let product of order.products; let i = index">
+        <tr *ngFor="let product of order.productList; let i = index">
             <td>{{product.nomenclature.title}}</td>
             <td>{{product.amount}}</td>
             <td>{{product.price}}</td>
             <td>{{product.sum}}</td>
         </tr>
     </table>
-    <p>Итог: {{order.products | sum:'sum'}}</p>
+    <p>Итог: {{order.productList | sum:'sum'}}</p>
 </div>

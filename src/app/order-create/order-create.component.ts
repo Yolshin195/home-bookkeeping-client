@@ -38,7 +38,7 @@ export class OrderCreateComponent implements OnInit {
   createOrderForm(): FormGroup {
     return this.formBuilder.group({
       counterparty: ['', Validators.required],
-      products: this.formBuilder.array([this.createProductForm()])
+      productList: this.formBuilder.array([this.createProductForm()])
     });
   }
 
@@ -52,12 +52,12 @@ export class OrderCreateComponent implements OnInit {
   }
 
   addProduct(): void {
-    let products = this.orderFormGroup.get('products') as FormArray;
-    products.push(this.createProductForm());
+    let productList = this.orderFormGroup.get('productList') as FormArray;
+    productList.push(this.createProductForm());
   }
 
   removeProduct(id: number): void {
-    (this.orderFormGroup.controls["products"] as FormArray).removeAt(id);
+    (this.orderFormGroup.controls["productList"] as FormArray).removeAt(id);
   }
 
   onSubmit(): void {
@@ -69,7 +69,7 @@ export class OrderCreateComponent implements OnInit {
   createOrder(order: Order): Order {
     order.create = new Date();
     order.counterparty = this.counterpartyService.get(Number(order.counterparty));
-    order.products.forEach((product, i) => {
+    order.productList.forEach((product, i) => {
       product.nomenclature = this.nomenclatureService.get(Number(product.nomenclature));
       product.amount = Number(product.amount);
       product.price = Number(product.price);
@@ -80,15 +80,17 @@ export class OrderCreateComponent implements OnInit {
   }
 
   setPrice(value: Order): void {
-    console.log(value);
+    console.log('setPrice() ', value);
 
     if (value.counterparty) {
-      value.products.forEach((element, i) => {
+      value.productList.forEach((element, i) => {
+        if (Number(element.price) > 0) return;
+
         if (element.nomenclature) {
           let price = this.priceService.getPrice(Number(element.nomenclature), Number(value.counterparty));
           if (price > 0) {
             this.orderFormGroup
-            .get('products')
+            .get('productList')
             .get(String(i))
             .get("price")
             .setValue(price);  
@@ -97,17 +99,19 @@ export class OrderCreateComponent implements OnInit {
       });
     }
 
-    value.products.forEach((element, i) => {
+    value.productList.forEach((element, i) => {
       if (Number(element.price) > 0 && Number(element.amount) > 0) {
-        this.orderFormGroup
-          .get('products')
-          .get(String(i))
-          .get("sum")
-          .setValue(Number(element.price) * Number(element.amount));
+        if (Number(element.price) * Number(element.amount) !== Number(element.sum)) {
+          this.orderFormGroup
+            .get('productList')
+            .get(String(i))
+            .get("sum")
+            .setValue(Number(element.price) * Number(element.amount));
+        }
       }
     });
 
-    this.sum = value.products.map(p => Number(p.sum)).reduce((n, s) => n+s,0);
+    this.sum = value.productList.map(p => Number(p.sum)).reduce((n, s) => n+s,0);
   }
 
 }

@@ -10,11 +10,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let order of orderList">
+        <tr *ngFor="let order of orderService.resource |async">
             <td>{{order.id}}</td>
             <td>{{order.create | date:'short'}}</td>
             <td>{{order.counterparty.title}}</td>
-            <td>{{order.products | sum:'sum'}}</td>
+            <td>{{order.productList | sum:'sum'}}</td>
         </tr>
     </tbody>
 </table>

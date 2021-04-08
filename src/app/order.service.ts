@@ -1,11 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Order } from './order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+  private REST_API_SERVER = "http://localhost:8080/order";
+  private resourceSource = new BehaviorSubject<Order[]>([]);
+  resource = this.resourceSource.asObservable();
 
   orderList: Order[] = [
     {
@@ -16,7 +20,7 @@ export class OrderService {
         title: "Пятерочка",
         description: "9 мая 53"
       },
-      products: [
+      productList: [
         {
           id: 1,
           nomenclature: {
@@ -32,9 +36,29 @@ export class OrderService {
     }
   ]
 
+  constructor(private _http: HttpClient) { }
+
   add(order: Order): void {
-    order.id = this.orderList[this.orderList.length - 1].id + 1;
-    this.orderList.push(order);
+    this._http.post<Order>(this.REST_API_SERVER, order).subscribe(order => {
+      this.resourceSource.next([order, ...this.resourceSource.value]);
+    })
+  }
+
+  get(id: number): Observable<Order> {
+    let order: Order = this.resourceSource.value.find(order => order.id === id);
+    if (order) {
+      return of(order);
+    }
+
+    return this._http.get<Order>(`this.REST_API_SERVER/${id}`);
+  }
+
+  getAll(): Observable<Order[]> {
+    this._http.get<Order[]>(this.REST_API_SERVER).subscribe(orderList => {
+      this.resourceSource.next(orderList);
+    });
+
+    return this.resource;
   }
 
   getOne(id: number): Order {
@@ -44,6 +68,4 @@ export class OrderService {
   getOrderList(): Observable<Order[]> {
     return of(this.orderList);
   }
-
-  constructor() { }
 }

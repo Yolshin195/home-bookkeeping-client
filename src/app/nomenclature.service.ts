@@ -44,7 +44,7 @@ export class NomenclatureService {
   }
 
   get(id:number) {
-    return this.items.find(item => item.id === id);
+    return this.resurceSource.getValue().find(item => item.id === id);
   }
 
   getAll(): Observable<Nomenclature[]> {
