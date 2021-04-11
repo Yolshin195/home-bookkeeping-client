@@ -33,8 +33,10 @@ export class PriceService {
 
   constructor(private _html: HttpClient) { }
 
-  add():void {
-
+  add(price: Price):void {
+    this._html.post<Price>(this.REST_API_SERVER, price).subscribe(price => {
+      this.resourceSource.next([price, ...this.resourceSource.value]);
+    })
   }
 
   get(): Observable<Price> {

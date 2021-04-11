@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CounterpartyService } from '../counterparty.service';
 import { NomenclatureService } from '../nomenclature.service';
+import { Price } from '../price';
 import { PriceService } from '../price.service';
 
 @Component({
@@ -36,7 +37,7 @@ export class PriceCreateComponent implements OnInit {
     let nomenclature = this.nomenclatureService.get(Number(this.form.value.nomenclature));
     let counterparty = this.counterpartyService.get(Number(this.form.value.counterparty));
     let price = Number(this.form.value.price);
-    this.priceService.create(nomenclature, counterparty, price);
+    this.priceService.add(({nomenclature, counterparty, price} as Price));
   }
 
 }
