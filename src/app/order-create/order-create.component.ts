@@ -87,14 +87,16 @@ export class OrderCreateComponent implements OnInit {
         if (Number(element.price) > 0) return;
 
         if (element.nomenclature) {
-          let price = this.priceService.getPrice(Number(element.nomenclature), Number(value.counterparty));
-          if (price > 0) {
-            this.orderFormGroup
-            .get('productList')
-            .get(String(i))
-            .get("price")
-            .setValue(price);  
-          }
+          let price = this.priceService.getPrice(Number(element.nomenclature), Number(value.counterparty))
+          .subscribe(price => {
+            if (price > 0) {
+              this.orderFormGroup
+              .get('productList')
+              .get(String(i))
+              .get("price")
+              .setValue(price);  
+            }
+          });
         }
       });
     }

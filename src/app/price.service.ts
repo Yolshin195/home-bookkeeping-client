@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Counterparty } from './counterparty';
 import { Nomenclature } from './nomenclature';
 import { Price } from './price';
@@ -64,10 +66,11 @@ export class PriceService {
     this.items.push(price);
   }
 
-  getPrice(nomenclatureId: number, counterpartyId: number): number {
-    let p = this.items
-      .find(item => item.nomenclature.id == nomenclatureId && item.counterparty.id == counterpartyId);
-    
-    return (p) ? p.price : 0;
+  getPrice(nomenclatureId: number, counterpartyId: number): Observable<number> {
+    return this._html.get<Price>(`${this.REST_API_SERVER}/find?nID=${nomenclatureId}&cID=${counterpartyId}`)
+    .pipe(map(price => {
+      if (price) return price.price;
+      return 0;
+    }));
   }
 }
