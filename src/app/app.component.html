@@ -1,6 +1,17 @@
-<app-order-create></app-order-create>
-<app-nomenclature-create></app-nomenclature-create>
-<app-counterparty-create></app-counterparty-create>
-<app-price-create></app-price-create>
-<app-order></app-order>
-<app-order-line></app-order-line>
+<div class="nav">
+    <h1>Home Bookkeeping</h1>
+</div>
+<div class="body">
+    <div class="nav-bar">
+        <ul>
+            <li><a routerLink="/create-order" routerLinkActive="active">Add order</a></li>
+            <li><a routerLink="/create-nomenclature" routerLinkActive="active">Add nomenclature</a></li>
+            <li><a routerLink="/create-counterparty" routerLinkActive="active">Add counterparty</a></li>
+            <li><a routerLink="/create-price" routerLinkActive="active">Add price</a></li>
+            <li><a routerLink="/list-order" routerLinkActive="active">List order</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

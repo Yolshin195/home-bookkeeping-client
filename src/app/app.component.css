@@ -1,0 +1,25 @@
+.nav {
+    border-bottom: solid 1px black;
+    margin: 0px;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+.body {
+    width: 100%;
+}
+
+.nav-bar {
+    float: left;
+    width: 200px;
+    border: solid 1px black;
+    margin: 0 0.5rem;
+}
+
+.content {
+    float: left;
+    width: 79%;
+}
+
+.body {
+    width: auto;
+}
