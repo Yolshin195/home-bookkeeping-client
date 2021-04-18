@@ -64,6 +64,7 @@ export class OrderCreateComponent implements OnInit {
     let order = this.createOrder(this.orderFormGroup.value as Order);
     this.orderService.add(order);
     this.orderFormGroup = this.createOrderForm();
+    this.sum = 0;
   }
 
   createOrder(order: Order): Order {

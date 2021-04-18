@@ -20,12 +20,13 @@ export class CounterpartyCreateComponent implements OnInit {
   createForm(): FormGroup {
     return this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ''
     })
   }
 
   onSubmint(): void {
     this.counterpartyService.add(this.form.value as Counterparty);
+    this.form = this.createForm();
   }
 
 }

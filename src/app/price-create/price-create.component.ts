@@ -38,6 +38,8 @@ export class PriceCreateComponent implements OnInit {
     let counterparty = this.counterpartyService.get(Number(this.form.value.counterparty));
     let price = Number(this.form.value.price);
     this.priceService.add(({nomenclature, counterparty, price} as Price));
+    
+    this.form = this.onCreateForm();
   }
 
 }

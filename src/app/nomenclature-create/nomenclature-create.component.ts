@@ -20,12 +20,13 @@ export class NomenclatureCreateComponent implements OnInit {
   createForm(): FormGroup {
     return this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ''
     })
   }
 
   onSubmint(): void {
     this.nomenclatureService.add(this.form.value as Nomenclature);
+    this.form = this.createForm();
   }
 
 }
