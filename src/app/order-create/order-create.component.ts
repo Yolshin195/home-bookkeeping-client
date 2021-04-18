@@ -114,7 +114,9 @@ export class OrderCreateComponent implements OnInit {
       }
     });
 
-    this.sum = value.productList.map(p => Number(p.sum)).reduce((n, s) => n+s,0);
+    this.sum = Math.round(
+      value.productList.map(p => Number(p.sum)).reduce((n, s) => n+s,0) * 100
+    ) / 100;
   }
 
 }
