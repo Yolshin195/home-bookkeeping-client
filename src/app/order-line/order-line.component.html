@@ -1,20 +1,27 @@
-<h2>My order list</h2>
+<div class="order">
+    <div class="order-list">
+        <h2>My order list</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>№</th>
-            <th>Дата</th>
-            <th>Контрагент</th>
-            <th>Сумма</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let order of orderService.resource |async">
-            <td>{{order.id}}</td>
-            <td>{{order.create | date:'short'}}</td>
-            <td>{{order.counterparty.title}}</td>
-            <td>{{order.productList | sum:'sum'}}</td>
-        </tr>
-    </tbody>
-</table>
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата</th>
+                    <th>Контрагент</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orderService.resource |async" (click)="onSelectOrder(order)">
+                    <td>{{order.id}}</td>
+                    <td>{{order.create | date:'short'}}</td>
+                    <td>{{order.counterparty.title}}</td>
+                    <td>{{order.productList | sum:'sum'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="order-detail">
+        <app-order [order]="selectOrder"></app-order>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+.order {
+    width: 100%;
+}
+
+.order-list {
+    border: solid 1px black;
+    width: 50%;
+    float:left;
+    
+}
+
+.order-detail {
+    margin-left: 1%;
+    width: 45%;
+    float: left;
+}

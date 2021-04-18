@@ -9,6 +9,7 @@ import { OrderService } from '../order.service';
 })
 export class OrderLineComponent implements OnInit {
   public orderList: Order[] = [];
+  public selectOrder: Order;
 
   constructor(public orderService: OrderService) { }
 
@@ -22,4 +23,11 @@ export class OrderLineComponent implements OnInit {
       .subscribe(orderList => this.orderList = orderList);
   }
 
+  onSelectOrder(order: Order): void {
+    if (this.selectOrder === order) {
+      this.selectOrder = null;
+    } else {
+      this.selectOrder = order;
+    }
+  }
 }
